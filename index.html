@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Race Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="broken">
+  <header>
+    <div>
+      <h1>⚡ Pokémon Race Lab</h1>
+      <p id="version-note"></p>
+    </div>
+    <div class="toggle">
+      <label><input type="radio" name="version" value="broken" checked><span>🐞 Broken</span></label>
+      <label><input type="radio" name="version" value="fixed"><span>✅ Fixed</span></label>
+    </div>
+  </header>
+
+  <div class="flow">
+    <div class="step"><b>Level 1</b>Pokémon<small>2 s</small></div>
+    <div class="arrow">→<small>needs its name &amp; id</small></div>
+    <div class="step"><b>Level 2</b>Species ∥ Encounters<small>1 s</small></div>
+    <div class="arrow">→<small>needs the chain id</small></div>
+    <div class="step"><b>Level 3</b>Evolution chain<small>0.5 s</small></div>
+  </div>
+
+  <section class="level">
+    <p class="tag">Level 1</p>
+    <h2>Pick a Pokémon <small>/pokemon/{id} · needs nothing, starts right away · 🐢 2 s</small></h2>
+    <form id="search-form">
+      <input id="search-input" placeholder="Name or number, e.g. pikachu or 25" required>
+      <button>🔎 Load</button>
+    </form>
+    <p class="hint">Or pick one quickly — then pick another before the first one finishes:</p>
+    <div class="buttons">
+      <button class="pick" data-name="pikachu">⚡ Pikachu</button>
+      <button class="pick" data-name="charmander">🔥 Charmander</button>
+      <button class="pick" data-name="eevee">🦊 Eevee</button>
+      <button class="pick" data-name="oddish">🌱 Oddish</button>
+      <button class="pick" data-name="geodude">🪨 Geodude</button>
+      <button class="pick" data-name="fuecoco">🐊 Fuecoco</button>
+      <button id="race" class="race">🏁 Race it: Pikachu, then Fuecoco 0.7 s later</button>
+    </div>
+    <p class="status">
+      Selected: <b id="selected">—</b> ·
+      Showing: <b id="shown">—</b>
+      <span id="badge" class="badge"></span>
+    </p>
+    <p class="counters">
+      Stale answers shown: <b id="stale-count">0</b> ·
+      Requests aborted: <b id="abort-count">0</b>
+    </p>
+    <div id="pokemon" class="panel"><p class="hint">Pick a Pokémon above.</p></div>
+  </section>
+
+  <section class="level">
+    <p class="tag">Level 2</p>
+    <h2>Species and encounters run together <small>both need the Level 1 answer, neither needs the other · 1 s</small></h2>
+    <div class="pair">
+      <div>
+        <h3>📖 Pokédex entry <span class="owner" id="species-owner"></span></h3>
+        <p class="hint">/pokemon-species/{name}</p>
+        <div id="species" class="panel"><p class="hint">Waiting for Level 1…</p></div>
+      </div>
+      <div>
+        <h3>🗺️ Where to find it <span class="owner" id="encounters-owner"></span></h3>
+        <p class="hint">/pokemon/{id}/encounters</p>
+        <div id="encounters" class="panel"><p class="hint">Waiting for Level 1…</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="level">
+    <p class="tag">Level 3</p>
+    <h2>Evolution chain <small>its id only exists inside the Level 2 species answer · 🐇 0.5 s</small></h2>
+    <h3>🧬 Evolution line <span class="owner" id="evolution-owner"></span></h3>
+    <p class="hint">/evolution-chain/{id}</p>
+    <div id="evolution" class="panel"><p class="hint">Waiting for Level 2…</p></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
